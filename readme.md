@@ -22,5 +22,5 @@ Or run on another port, if 8080 is used:
 ## What could be improved (TODO)
 
 * Possibility to start game with 4 or 5 seeds in houses from request. Now game has fixed SEEDS_COUNT=6;
-* Improve somehow game winner returning state: now it returns String with Player.name() or word "DRAW" in case of draw 
+* Improve somehow game winner returning state: now it returns String with Player.name() or "A DRAW" in case of a draw 
 * It will be good to use GameDto for requests and then convert it to Game for internal usage

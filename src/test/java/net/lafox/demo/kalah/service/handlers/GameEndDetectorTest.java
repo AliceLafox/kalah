@@ -22,4 +22,15 @@ public class GameEndDetectorTest {
         assertEquals(expected.getWinner(), actual.getWinner());
 
     }
+
+    @Test
+    public void testADrawAsWinner() {
+        Game game = createGame(4, new int[]{0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 30}, Player.GREEN);
+        Game expected = Game.getNewInstance(game);
+        expected.setWinner("A DRAW");
+
+        Game actual = handler.handle(game);
+        assertEquals(expected.getWinner(), actual.getWinner());
+
+    }
 }

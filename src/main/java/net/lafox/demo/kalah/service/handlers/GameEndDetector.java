@@ -17,7 +17,6 @@ public class GameEndDetector implements GameHandler {
         if (playerHousesAreEmpty(game)) {
             putOpponentSeedsToStore(game);
             game.setWinner(getTheWinner(game));
-
         }
 
         return game;
@@ -53,7 +52,7 @@ public class GameEndDetector implements GameHandler {
     }
 
     private String getTheWinner(Game game) {
-        if (game.getHouses()[STORE_GREEN_INDEX] == game.getHouses()[STORE_RED_INDEX]) return "DRAW";
+        if (game.getHouses()[STORE_GREEN_INDEX] == game.getHouses()[STORE_RED_INDEX]) return "A DRAW";
 
         if (game.getHouses()[STORE_GREEN_INDEX] > game.getHouses()[STORE_RED_INDEX])
             return Player.GREEN.name();
