@@ -1,6 +1,7 @@
 package net.lafox.demo.kalah.service;
 
 import net.lafox.demo.kalah.data.Game;
+import net.lafox.demo.kalah.data.GameDto;
 import net.lafox.demo.kalah.service.handlers.GameHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,10 @@ public class GameServiceImpl implements GameService {
 
 
     @Override
-    public Game nextTurn(Game previous) {
-        Game game;
-        game = validator.handle(previous);
+    public GameDto nextTurn(GameDto gameDto) {
+        Game game = new Game(gameDto);
+
+        game = validator.handle(game);
         game = sower.handle(game);
         game = emptyHouseRule.handle(game);
         game = gameEndDetector.handle(game);
@@ -31,12 +33,14 @@ public class GameServiceImpl implements GameService {
             game = nextPlayerDetector.handle(game);
         }
 
-        return game;
-
+        return game.asDto();
     }
 
     @Override
-    public Game newGame() {
-        return new Game();
+    public GameDto newGame(Integer seeds) {
+        if (seeds == null || seeds < Game.MIN_SEEDS_COUNT || seeds > Game.SEEDS_COUNT) {
+            return new Game().asDto();
+        } else return new Game(seeds).asDto();
+
     }
 }

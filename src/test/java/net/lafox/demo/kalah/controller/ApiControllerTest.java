@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.lafox.demo.kalah.data.Game;
+import net.lafox.demo.kalah.data.GameDto;
 import net.lafox.demo.kalah.service.GameService;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,20 +30,20 @@ public class ApiControllerTest {
 
     @MockBean
     private GameService gameService;
-    private Game game;
+    private GameDto game;
 
     @Before
     public void setUp() throws Exception {
-        game = new Game();
-        given(this.gameService.nextTurn(game)).willReturn(game);
-        given(this.gameService.newGame()).willReturn(game);
+        game = new Game().asDto();
+        given(gameService.nextTurn(game)).willReturn(game);
 
     }
 
     @Test
-    public void newGame() throws Exception {
+    public void testNewGameDefaultGame() throws Exception {
+        given(gameService.newGame(null)).willReturn(game);
         String json = mapper.writeValueAsString(game);
-        this.mvc.perform(get(ApiController.API_PATH + "/newGame")
+        mvc.perform(get(ApiController.API_PATH + "/newGame")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(json))
@@ -51,13 +52,26 @@ public class ApiControllerTest {
     }
 
     @Test
-    public void nextTurn() throws Exception {
-
+    public void testNextTurn() throws Exception {
         String json = mapper.writeValueAsString(game);
-        this.mvc.perform(post(ApiController.API_PATH + "/nextTurn")
+        mvc.perform(post(ApiController.API_PATH + "/nextTurn")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(json))
                 .andExpect(status().isOk()).andReturn();
+    }
+
+    @Test
+    public void testNewGameWithGivenSeedsCount() throws Exception {
+        int seeds = 4;
+        game = new Game(seeds).asDto();
+        given(gameService.newGame(seeds)).willReturn(game);
+        String json = mapper.writeValueAsString(game);
+
+        mvc.perform(get(ApiController.API_PATH + "/newGame?seeds=" + seeds)
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(json))
+                .andReturn();
     }
 
 

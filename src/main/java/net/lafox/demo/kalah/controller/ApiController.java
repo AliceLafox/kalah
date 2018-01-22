@@ -1,6 +1,6 @@
 package net.lafox.demo.kalah.controller;
 
-import net.lafox.demo.kalah.data.Game;
+import net.lafox.demo.kalah.data.GameDto;
 import net.lafox.demo.kalah.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -15,13 +15,13 @@ public class ApiController {
     private GameService gameService;
 
     @GetMapping(value = "/newGame", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity newGame() {
-        return ResponseEntity.ok(gameService.newGame());
+    public ResponseEntity newGame(@RequestParam(required = false) Integer seeds) {
+        return ResponseEntity.ok(gameService.newGame(seeds));
     }
 
     @PostMapping(value = "/nextTurn", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity nextTurn(@RequestBody Game game) {
-        return ResponseEntity.ok(gameService.nextTurn(game));
+    public ResponseEntity nextTurn(@RequestBody GameDto gameDto) {
+        return ResponseEntity.ok(gameService.nextTurn(gameDto));
     }
 
 }

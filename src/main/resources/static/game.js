@@ -1,7 +1,21 @@
 var currentGame;
 
+function getNewGameApiUrl() {
+    $.urlParam = function (name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results != null)
+            return results[1] || 0;
+        else return null;
+    };
+    var seeds = $.urlParam("seeds");
+    console.log(seeds);
+
+    return seeds == null ? "api/v1/game/newGame" : "api/v1/game/newGame?seeds=" + seeds;
+}
+
 $(document).ready(function () {
-    $.get("api/v1/game/newGame", function (game) {
+
+    $.get(getNewGameApiUrl(), function (game) {
         console.log(game);
         currentGame = game;
         drawGame(currentGame);
@@ -28,8 +42,6 @@ function checkEndGame() {
 }
 
 function nextGame(index) {
-
-
     if ($("#house" + index).hasClass("disabled")) return;
     currentGame.selectedHouse = index;
 

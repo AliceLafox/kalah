@@ -1,9 +1,9 @@
 package net.lafox.demo.kalah.service;
 
-import net.lafox.demo.kalah.data.Game;
+import net.lafox.demo.kalah.data.GameDto;
 
 public interface GameService {
-    Game nextTurn(Game game);
+    GameDto nextTurn(GameDto gameDto);
 
-    Game newGame();
+    GameDto newGame(Integer seeds);
 }

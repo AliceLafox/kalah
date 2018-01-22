@@ -47,7 +47,7 @@ public class Validator implements GameHandler {
 
     private void gameIsBroken(Game game) {
         int seedsCount = Arrays.stream(game.getHouses()).sum();
-        if (seedsCount != Game.SEEDS_COUNT * (Game.MAX_HOUSES - 2)) {
+        if (seedsCount != game.getSeeds() * (Game.MAX_HOUSES - 2)) {
             throw new GameException(GAME_IS_BROKEN);
         }
     }
