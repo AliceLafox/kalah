@@ -1,8 +1,8 @@
 # Kalah Game
 by Alice Lafox (alice@lafox.net)
 
-### Demo game is running here:
-    http://kalah.lafox.net
+### Demo game is running here: 
+http://kalah.lafox.net
 
 ## To Play locally:
     
