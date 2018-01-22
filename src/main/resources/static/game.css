@@ -1,0 +1,21 @@
+.game-house {
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.game-store {
+    width: 128px;
+    height: 64px;
+    border-radius: 32px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.bordered {
+    border: #6c757d solid 1px;
+    background-color: #f8f8f8;
+    border-radius: 32px;
+}
